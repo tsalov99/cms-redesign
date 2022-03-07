@@ -15,9 +15,6 @@ class Router
         // Parse the URL in way that will be easy to compare with the routes
         $trimmedUrl      = trim($url, '/');
         $trimmedUrlArray = explode('/', $trimmedUrl);
-        echo "<pre> trimmed URL array";
-            print_r($trimmedUrlArray);
-            echo "</pre>";
 
         // Iterate trough all route and try to match them with the given URL
         foreach (static::$routes as $route => $callback) {
@@ -25,16 +22,7 @@ class Router
             // Parse the route in a way that will be easy to compare with the URLs
             $trimmedRoute      = trim($route, '/');
             $trimmedRouteArray = explode('/', $trimmedRoute);
-            echo "<pre> trimmed route array";
-            print_r($trimmedRouteArray);
-            echo "</pre>";
             // Check if the simple route and URL match
-            echo "<pre> trimmed route---------------------";
-            print_r($trimmedRoute);
-            echo "</pre>";
-            echo "<pre> trimmed URL-----------------------------";
-            print_r($trimmedUrl);
-            echo "</pre>";
             if ($trimmedRoute === $trimmedUrl) {
                 static::$matchingRoute = ['route' => $route, 'callback' => $callback, 'params' => []];
                 return static::$matchingRoute;

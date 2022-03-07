@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 // Main constants used trough the app
 
@@ -10,4 +10,3 @@ define('VENDOR_PATH', ROOT_PATH . 'vendor' . DS);
 define('LAYOUT_PATH', ROOT_PATH . 'layout' . DS);
 define('URL_BASE', str_replace($_SERVER['DOCUMENT_ROOT'], '', ROOT_PATH));
 define('ROUTE_BASE', rtrim(str_replace(URL_BASE, '/', $_SERVER['REQUEST_URI']), '/') . DS);
-
