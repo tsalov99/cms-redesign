@@ -1,0 +1,4 @@
+RewriteEngine on
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ testView.php [L,QSA]
