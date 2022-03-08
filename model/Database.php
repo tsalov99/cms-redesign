@@ -1,12 +1,13 @@
 <?php
 
-class Database {
-    private $host;
-    private $user;
-    private $pass;
-    private $dbName;
+$host = $settings['database']['host'];
+$name = $settings['database']['user'];
+$pass = $settings['database']['pass'];
+$dbName = $settings['database']['name'];
 
-    private function connect($host, $user, $pass, $dbName) {
+class Database {
+
+    public function __construct($host, $user, $pass, $dbName) {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         try
         {
