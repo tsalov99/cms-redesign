@@ -79,9 +79,6 @@ class Model
     public function readAll()//($order, $conditions)
     {
         $sql = "SELECT * FROM `{$this->tableName}`";
-        $stmt = $this->dbConnection->stmt_init();
-        $stmt->prepare($sql);
-        return $stmt->execute();
-
+        return mysqli_query($this->dbConnection, $sql);
     }
 }

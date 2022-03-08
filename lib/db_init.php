@@ -55,6 +55,6 @@ if (!$dbExists) {
 	// Create the tables
 	$settings['db_connection']->query($settings['database_schema']['posts_table']);
 	$settings['db_connection']->query($settings['database_schema']['images_table']);
-	$settings['db_connection']->query($settings['database_schema']['customers_table']);
+	$settings['db_connection']->query($settings['database_schema']['reviews_table']);
 }
 
