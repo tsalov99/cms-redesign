@@ -27,5 +27,4 @@ echo '<br>';
 
 $test = new TestRouter;
 
-$test::matchURL(ROUTE_BASE);
-
+$test->getController(ROUTE_BASE);

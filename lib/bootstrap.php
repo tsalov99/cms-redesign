@@ -41,11 +41,12 @@ $test = new Database($host, $name, $pass, $dbName);
 
 
 // Dispatch route
-$route = Router::matchRoute(ROUTE_BASE);
-if ($route) {
-    $route['callback']();
-    
+$request = Router::prepareUrl(ROUTE_BASE);
+
+//print_r($request);
+
+if ($request['callback'] !== NULL) {
+    call_user_func($request['callback'], $request);
 } else {
-    echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Page not found']);
-	return;
+    echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Page not found']); return;
 }
