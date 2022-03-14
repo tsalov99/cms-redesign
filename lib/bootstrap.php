@@ -43,6 +43,13 @@ $test = new Database($host, $name, $pass, $dbName);
 // Dispatch route
 $request = Router::prepareUrl(ROUTE_BASE);
 
+//$controllerName = ucfirst($request['controller']) . 'Controller';
+//$controllerPath = CONTROLLER_PATH . ucfirst($request['controller']) . 'Controller.php';
+//if (file_exists($controllerPath)) {
+//    require_once($controllerPath);
+//    $controller = new $controllerName;
+//}
+
 //print_r($request);
 
 if ($request['callback'] !== NULL) {

@@ -67,8 +67,13 @@ class Model
     }
 
     public function readRowById($id)
-    {
-        
+    {   
+        $id = (int) $id;
+        $sql = "SELECT * FROM `{$this->tableName}` WHERE id = $id";
+        $stmt = $this->dbConnection->stmt_init();
+        $stmt->prepare($sql);
+        $stmt->execute();
+        return $result = $stmt->get_result();
     }
 
     public function deleteRowById($id)

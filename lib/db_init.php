@@ -57,4 +57,3 @@ if (!$dbExists) {
 	$settings['db_connection']->query($settings['database_schema']['images_table']);
 	$settings['db_connection']->query($settings['database_schema']['reviews_table']);
 }
-

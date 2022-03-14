@@ -29,11 +29,20 @@ Router::add('/post/{method}/{id}', function ($info) {
 //BlogControlller 
 //index
 
-Router::add('home', function () {
+Router::add('default', function () {
     echo 'vikash default';
   });
 
-Router::add('post', function ($params) {
-  //echo 'vikash posta';
-  require(CONTROLLER_PATH . 'PostController.php');
+Router::add('home', function () {
+    echo 'Home';
+    return $returned = "test";
+  });
+
+Router::add('posts', function ($params) {
+    require(CONTROLLER_PATH . 'PostController.php');
+    $testController = new PostController($params['method'], $params['parameters']);
+
+  //require('PostController.php');
+  //$post = new PostController;
+  //$post->getMethod($params['method'], $params);
 });
