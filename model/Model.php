@@ -73,7 +73,8 @@ class Model
         $stmt = $this->dbConnection->stmt_init();
         $stmt->prepare($sql);
         $stmt->execute();
-        return $result = $stmt->get_result();
+        $result = $stmt->get_result();
+        return $result;
     }
 
     public function deleteRowById($id)

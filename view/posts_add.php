@@ -1,14 +1,12 @@
 <?php require(LAYOUT_PATH . 'top.php');?>
 
 
-
-
-<form action="add-post-check" method="post" enctype="multipart/form-data">
+<form action="<?=URL_BASE . "posts/save"?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Title</label>
         <input  type="text" name="title" value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ;?>">
         <label>Short description</label>
-        <input type="text" name="short_description" value="<?= $short_description;?>"> <br>
+        <input type="text" name="short_description" value="<?= 'asd'?>"> <br>
 
         <label>Content</label>
         <textarea name="content" id="tiny" value=""></textarea>
@@ -20,7 +18,6 @@
         <input type="datetime-local" name="created"> <br>
 
         <label>Created:</label>
-        
 
         <label>Post image:</label> <br>
         <input type="file" name="imgUpload[]" multiple> <br>

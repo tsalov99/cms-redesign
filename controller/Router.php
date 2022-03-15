@@ -32,7 +32,7 @@ class Router
         }
 
         // If method is not set in the URL get the default method and stop Router
-        if (empty($trimmedUrlArray[0])) { static::$request['method'] = 'index'; }
+        if (empty($trimmedUrlArray[0])) { static::$request['method'] = 'view'; }
         else {static::$request['method'] = array_shift($trimmedUrlArray);}
 
         // If any paramater is passed goes into request parameters array.

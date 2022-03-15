@@ -33,15 +33,16 @@ Router::add('default', function () {
     echo 'vikash default';
   });
 
-Router::add('home', function () {
-    echo 'Home';
-    return $returned = "test";
+Router::add('home', function ($params) {
+    require(CONTROLLER_PATH . 'PostController.php');
+    $testController = new PostController($params['method'], $params['parameters']);
   });
 
 Router::add('posts', function ($params) {
     require(CONTROLLER_PATH . 'PostController.php');
     $testController = new PostController($params['method'], $params['parameters']);
 
+    
   //require('PostController.php');
   //$post = new PostController;
   //$post->getMethod($params['method'], $params);
