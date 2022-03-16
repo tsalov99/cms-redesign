@@ -1,7 +1,7 @@
 <?php
 
 
-// to make general logic for main Controller and other controllers to inherit it 
+// to make general logic for main Controller and other controllers to inherit it
 
 class PostController
 {
@@ -44,7 +44,7 @@ class PostController
         if (!is_numeric($params[0]) || strpos($params[0], 'e') !== false) {
             echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'This post does not exist']); return;
         };
-        require(MODEL_PATH . 'Post.php');
+        require_once(MODEL_PATH . 'Post.php');
 
         $post = new Post(new mysqli('localhost', 'root', 'S1L0V', 'blog-cms-project'));  // To change this connection, its only for testing
         $post = $post->readRowById($params[0]);
@@ -58,16 +58,36 @@ class PostController
     }
 
     public function edit($params) {
-
+        require_once(MODEL_PATH . 'Post.php');
+        $post = new Post(new mysqli('localhost', 'root', 'S1L0V', 'blog-cms-project'));  // To change this connection, its only for testing
+        $post = $post->readRowById($params[0]);
+        if ($post->num_rows === 0) {
+            echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Post with this id is not existing']); return;
+        }
+        $post = $post->fetch_assoc();
+        require_once(VIEW_PATH . 'posts_edit.php');
+        require_once(CONTROLLER_PATH . 'Validator.php');
+        //$errors = Validator::check();
+        
     }
 
     public  function add($params) {
+        require_once(CONTROLLER_PATH . 'Validator.php');
+        //$errors = Validator::check();
         require_once(VIEW_PATH . 'posts_add.php');
     }
 
     public function save($params) {
-
         require_once(CONTROLLER_PATH . 'Validator.php');
-        Validator::check($params);
+        $errors = Validator::check();
+
+        if(empty($errors)) {
+            require_once(MODEL_PATH . 'Post.php');
+            $post = new Post(new mysqli('localhost', 'root', 'S1L0V', 'blog-cms-project'));
+            $result = $post->insertRow($_POST);
+            require_once(VIEW_PATH . 'posts_saved.php'); return;
+        }
+        require_once(VIEW_PATH . 'posts_add.php');
+
     }
 }

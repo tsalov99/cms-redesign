@@ -1,24 +1,21 @@
 <?php require(LAYOUT_PATH . 'top.php');?>
 
-
-
-
 <form action="<?=URL_BASE . "posts/save"?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Title</label>
-        <input  type="text" name="title" value="<?= isset($_POST['title']) ? $_POST['title'] : '';?>">
+        <input  type="text" name="title" value="<?= isset($post['title']) ? $post['title'] : '';?>">
         <?= isset($errors['title']) ? $errors['title'] : '' ;?>
 
         <label>Short description</label>
-        <input type="text" name="short_description" value="<?= isset($_POST['short_description']) ? $_POST['short_description'] : '';?>"> <br>
+        <input type="text" name="short_description" value="<?= isset($post['short_description']) ? $post['short_description'] : '';?>"> <br>
         <?= isset($errors['short_description']) ? $errors['short_description'] : '' ;?>
 
         <label>Content</label>
-        <textarea name="content" id="tiny" value=""><?= isset($_POST['content']) ? $_POST['content'] : '';?></textarea>
+        <textarea name="content" id="tiny" value=""><?= isset($post['content']) ? $post['content'] : '';?></textarea>
         <?= isset($errors['content']) ? $errors['content'] : '' ;?>
 
         <label>Slug</label>
-        <input type="text" name="slug" value="<?= isset($_POST['slug']) ? $_POST['slug'] : '';?>"> <br>
+        <input type="text" name="slug" value="<?= isset($post['slug']) ? $post['slug'] : '';?>"> <br>
         <?= isset($errors['slug']) ? $errors['slug'] : '' ;?>
 
         <label>Date created</label>
@@ -33,7 +30,7 @@
         <input type="radio" name="active" value=0>
         <br>
 
-        <input type="submit" value="Add post">
+        <input type="submit" value="Update post">
     </div>
 </form>
 

@@ -20,10 +20,10 @@ class Model
 
         // Add the bind parameters
         foreach ($data as $field => $data) {
-            $bindFields .= "'{$field}',";
+            $bindFields .= "`{$field}`,";
             $bindString .= '?,';
 
-            if (is_numeric($bindParams)) {
+            if (is_numeric($data)) {
                 $bindParams .= 'i';
             } else {
                 $bindParams .= 's';
@@ -31,20 +31,22 @@ class Model
         }
 
         // Remove traling commas
-        rtrim($bindFields, ',');
-        rtrim($bindString, ',');
+        $bindFields = rtrim($bindFields, ',');
+        $bindString = rtrim($bindString, ',');
+        $bindParams = rtrim($bindParams, ',');
 
         return ['fields' => $bindFields, 'values' => $bindString, 'params' => $bindParams];
     }
 
-    public function insetRow($data)
+    public function insertRow($data)
     {
-        $stmtParts = $this->loadStmtParams();
+        $stmtParts = $this->loadStmtParams($data);
         $sql       = "INSERT INTO `{$this->tableName}` ({$stmtParts['fields']}) VALUES ({$stmtParts['values']})";
 
         // Build the statement
-        $stmt = $this->dbConnection->stmt_init($sql);
-        $stmt->bind_param($stmtParts['params'], ...$data);
+        $stmt = $this->dbConnection->stmt_init();
+        $stmt->prepare($sql);
+        $stmt->bind_param($stmtParts['params'], ...(array_values($data)));
         return $stmt->execute();
     }
 
@@ -85,6 +87,11 @@ class Model
     public function readAll()//($order, $conditions)
     {
         $sql = "SELECT * FROM `{$this->tableName}`";
+        return mysqli_query($this->dbConnection, $sql);
+    }
+
+    public function checkSlug($slug) {
+        $sql = "SELECT * FROM `{$this->tableName}` WHERE slug = '$slug'";
         return mysqli_query($this->dbConnection, $sql);
     }
 }
