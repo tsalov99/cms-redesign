@@ -52,19 +52,21 @@ class Model
 
     public function updateRowById($id, $data)
     {
-        $stmtParts = $this->loadStmtParams();
+        $stmtParts = $this->loadStmtParams($data);
         $sql       = "UPDATE `{$this->tableName}` SET";
 
         // Add the updated fields
         foreach ($data as $field => $value) {
-            $sql .= " `{$field}` = ?";
+            $sql .= " `{$field}` = ?,";
         }
+        $sql = rtrim($sql, ',');
 
         $sql .= ' WHERE id = ' . $id;
 
         // Build the statement
-        $stmt = $this->dbConnection->stmt_init($sql);
-        $stmt->bind_param($stmtParts['params'], ...$data);
+        $stmt = $this->dbConnection->stmt_init();
+        $stmt->prepare($sql);
+        $stmt->bind_param($stmtParts['params'], ...(array_values($data)));
         return $stmt->execute();
     }
 
@@ -81,7 +83,8 @@ class Model
 
     public function deleteRowById($id)
     {
-        
+        $sql = "DELETE FROM `{$this->tableName}` WHERE id = $id";
+        return mysqli_query($this->dbConnection, $sql); 
     }
     
     public function readAll()//($order, $conditions)
