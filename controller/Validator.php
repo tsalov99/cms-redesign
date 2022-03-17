@@ -27,21 +27,20 @@ class Validator
             if(strlen($slug) === 0) { static::$errors['slug'] = 'The field cannot be empty!';}
             else if (strlen($slug) > 80) { static::$errors['slug'] = 'This field must be under 80 characters!';}
             if(empty(static::$errors)) {
-                    (isset($params[0])) ? $id = $params[0] : $id = null;
-                    $checkSlugId = self::slugDuplicateCheck($slug); // returns array with post info if its matching or null
+
+                    // if post is edited the ID should be passed;
+                    (isset($params[0])) ? $id = $params[0] : $id = null; 
+
+                    // returns array with post info if its matching or null
+                    $checkSlugId = self::slugDuplicateCheck($slug);
 
                 if ($checkSlugId !== null) {
                     if ($checkSlugId[0] === $id ) { // if id is passed through the url it will return edit, page
-                        static::$errors['slug'] = 'update';
+                        static::$errors['slug'] = 'update';  // set a flag for controller to know if its edit request// ad-hoc(should change it)
                     } else if($checkSlugId[0] !== $id) {
                         static::$errors['slug'] = 'This slug arleady exists!';
                     }
                 }
-                
-                
-            //if ($result->num_rows > 0) {
-            //    $slugError = 'This slug arleady exists';
-            //}
             
             $_POST['created'] = date('Y-m-d H:m:s', strtotime($_POST['created']));
             $_POST['active'] = (int)($_POST['active']);
@@ -61,7 +60,7 @@ class Validator
 
     public static function slugDuplicateCheck($slug) {
         require_once(MODEL_PATH . 'Post.php ');
-        $postSlugCheck = new Post(new mysqli('localhost', 'root', '', 'blog-cms-project'));
+        $postSlugCheck = new Post;
         $postSlugCheck = $postSlugCheck->checkSlug($slug);
         $postSlugCheck = $postSlugCheck->fetch_row();
         return $postSlugCheck;

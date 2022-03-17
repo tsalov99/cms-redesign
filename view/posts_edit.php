@@ -1,5 +1,7 @@
 <?php require(LAYOUT_PATH . 'top.php');?>
 
+<?php require(LAYOUT_PATH . 'navigation.php');?>
+
 <form action="<?=URL_BASE . "posts/save/" . $post['id'];?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Title</label>
@@ -21,8 +23,10 @@
         <label>Date created</label>
         <input type="datetime-local" name="created"> <br>
 
+        <!--
         <label>Post image:</label> <br>
         <input type="file" name="imgUpload[]" multiple> <br>
+        -->
 
         <label>Active</label>
         <input type="radio" name="active" value=1 checked>

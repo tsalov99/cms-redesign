@@ -4,12 +4,7 @@ class Model
 {
     public $tableName;
     public $validations;
-    public $dbConnection;
-    
-    public function __construct($dbConnection)
-    {
-        $this->dbConnection = $dbConnection;
-    }
+    public static $dbConnection;
 
     public function loadStmtParams($data)
     {
@@ -44,7 +39,7 @@ class Model
         $sql       = "INSERT INTO `{$this->tableName}` ({$stmtParts['fields']}) VALUES ({$stmtParts['values']})";
 
         // Build the statement
-        $stmt = $this->dbConnection->stmt_init();
+        $stmt = static::$dbConnection->stmt_init();
         $stmt->prepare($sql);
         $stmt->bind_param($stmtParts['params'], ...(array_values($data)));
         return $stmt->execute();
@@ -64,7 +59,7 @@ class Model
         $sql .= ' WHERE id = ' . $id;
 
         // Build the statement
-        $stmt = $this->dbConnection->stmt_init();
+        $stmt = static::$dbConnection->stmt_init();
         $stmt->prepare($sql);
         $stmt->bind_param($stmtParts['params'], ...(array_values($data)));
         return $stmt->execute();
@@ -74,7 +69,7 @@ class Model
     {   
         $id = (int) $id;
         $sql = "SELECT * FROM `{$this->tableName}` WHERE id = $id";
-        $stmt = $this->dbConnection->stmt_init();
+        $stmt = static::$dbConnection->stmt_init();
         $stmt->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -84,17 +79,17 @@ class Model
     public function deleteRowById($id)
     {
         $sql = "DELETE FROM `{$this->tableName}` WHERE id = $id";
-        return mysqli_query($this->dbConnection, $sql); 
+        return mysqli_query(static::$dbConnection, $sql); 
     }
     
     public function readAll()//($order, $conditions)
     {
         $sql = "SELECT * FROM `{$this->tableName}`";
-        return mysqli_query($this->dbConnection, $sql);
+        return mysqli_query(static::$dbConnection, $sql);
     }
 
     public function checkSlug($slug) {
         $sql = "SELECT * FROM `{$this->tableName}` WHERE slug = '$slug'";
-        return mysqli_query($this->dbConnection, $sql);
+        return mysqli_query(static::$dbConnection, $sql);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(MODEL_PATH . 'Database.php');
+
 
 // Check if there is a connection already
 if ($settings['db_connection'] !== null) {

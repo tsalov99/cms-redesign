@@ -2,6 +2,8 @@
 
 require(LAYOUT_PATH . 'top.php');
 
+require(LAYOUT_PATH . 'navigation.php');
+
 
     $post['active'] === 1 ? $active = 'Yes' : $active = 'No';
     echo "<div class='text-left p-5 h6'>";
@@ -26,3 +28,5 @@ require(LAYOUT_PATH . 'top.php');
     echo "<a href=" . URL_BASE . "posts/edit/$post[id]><p>Edit post</p></a>";
     echo "<a href=" . URL_BASE . "posts/delete/$post[id]><p>Delete post</p></a>";
     echo "</div>";
+
+    require(LAYOUT_PATH . 'bottom.php');

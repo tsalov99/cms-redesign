@@ -1,6 +1,9 @@
 RewriteEngine on
 
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_URI} !admin
+    #RewriteCond %{REQUEST_URI} !admin
     #RewriteCond %{REQUEST_URI} !test
+    #RewriteRule ^(.admin*)$ admin/index [L,QSA]
+    #RewriteRule ^(.*)$ public/index.php [L,QSA]
+
     RewriteRule ^(.*)$ lib/bootstrap.php [L,QSA]
