@@ -21,12 +21,12 @@
         <?= isset($errors['slug']) ? $errors['slug'] : '' ;?>
 
         <label>Date created</label>
-        <input type="datetime-local" name="created"> <br>
+        <input type="datetime-local" name="created" value="<?= isset($post['created']) ? $post['created'] : ""; ?>"> <br>
 
         <!--
         <label>Post image:</label> <br>
         <input type="file" name="imgUpload[]" multiple> <br>
-        -->
+        //-->
 
         <label>Active</label>
         <input type="radio" name="active" value=1 checked>

@@ -65,8 +65,10 @@ class PostController
             echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Post with this id is not existing']); return;
         }
         $post = $post->fetch_assoc();
-        require_once(VIEW_PATH . 'posts_edit.php');
         require_once(CONTROLLER_PATH . 'Validator.php');
+        $post['created'] = Validator::convertDateCreated($post['created']); //Returning 'T' in the string for the html attribute to display the date
+        require_once(VIEW_PATH . 'posts_edit.php');
+        
     }
 
 

@@ -8,20 +8,22 @@ class Validator
 
         if (!empty($_POST)) {
 
-            $title = htmlspecialchars($_POST['title']);
+            $_POST['title'] = htmlspecialchars($_POST['title']);
+            $title = $_POST['title'];
             if(strlen($title) === 0) {static::$errors['title'] = 'This field cannot be empty!';}
             else if (strlen($title) > 80) {static::$errors['title'] = 'This field must be under 80 characters!';}
-    
-            $content = htmlspecialchars($_POST['content']);
+            
+            $_POST['content'] = htmlspecialchars($_POST['content']);
+            $content = $_POST['content'];
             if(strlen($content) === 0) {static::$errors['content'] = 'The field cannot be empty!';}
             
-            
-            $short_description = htmlspecialchars($_POST['short_description']);
+            $_POST['short_description'] = htmlspecialchars($_POST['short_description']);
+            $short_description = $_POST['short_description'];
             if(strlen($short_description) === 0) {static::$errors['short_description'] = 'The field cannot be empty!';}
             else if (strlen($short_description) > 150) {static::$errors['short_description'] = 'This field must be under 150 characters!';}
             
-            
-            $slug = htmlspecialchars($_POST['slug']);
+            $_POST['slug'] = htmlspecialchars($_POST['slug']);
+            $slug = $_POST['slug'];
             if (strlen($slug) === 0) { $_POST['slug'] = $title; $slug = $title;}
 
             if(strlen($slug) === 0) { static::$errors['slug'] = 'The field cannot be empty!';}
@@ -41,8 +43,8 @@ class Validator
                         static::$errors['slug'] = 'This slug arleady exists!';
                     }
                 }
-            
-            $_POST['created'] = date('Y-m-d H:m:s', strtotime($_POST['created']));
+                      
+            $_POST['created'] = static::convertDateCreated($_POST['created']);
             $_POST['active'] = (int)($_POST['active']);
     
             
@@ -65,4 +67,24 @@ class Validator
         $postSlugCheck = $postSlugCheck->fetch_row();
         return $postSlugCheck;
     }
-}
+
+    public static function convertDateCreated($createdDate) {
+
+        if (strpos($createdDate, 'T')) {
+            $createdDate = str_replace('T', ' ', $createdDate);
+            $timestamp = strtotime($createdDate);
+            $convertedDate = date('Y-m-d H:i', $timestamp);
+            return $convertedDate;
+        }
+
+        //$createdDate = str_replace(' ', 'T', $createdDate);
+        $timestamp = strtotime($createdDate);
+        //((int)date('H', $timestamp) < 12 ) ? $format = 'AM' : $format = 'PM';
+        //$convertedDate = date('Y-m-d\TH:i A', $timestamp);
+        $convertedDate = date('Y-m-d\TH:i', $timestamp);
+        return $convertedDate;
+        
+
+
+    }
+}   

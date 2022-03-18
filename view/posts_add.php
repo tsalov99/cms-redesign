@@ -23,7 +23,7 @@
         <?= isset($errors['slug']) ? $errors['slug'] : '' ;?> <br>
 
         <label>Date created</label>
-        <input type="datetime-local" name="created"> <br>
+        <input type="datetime-local" name="created" value="<?= isset($_POST['created']) ? $post['created'] : date('Y-m-d\TH:i', time() + 2*60*60); ?>"> <br>
 
         <!--
         <label>Post image:</label> <br>
