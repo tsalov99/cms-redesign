@@ -77,10 +77,7 @@ class Validator
             return $convertedDate;
         }
 
-        //$createdDate = str_replace(' ', 'T', $createdDate);
         $timestamp = strtotime($createdDate);
-        //((int)date('H', $timestamp) < 12 ) ? $format = 'AM' : $format = 'PM';
-        //$convertedDate = date('Y-m-d\TH:i A', $timestamp);
         $convertedDate = date('Y-m-d\TH:i', $timestamp);
         return $convertedDate;
         
