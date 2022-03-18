@@ -70,6 +70,7 @@ class Validator
 
     public static function convertDateCreated($createdDate) {
 
+        //In this case the information comes from the user input
         if (strpos($createdDate, 'T')) {
             $createdDate = str_replace('T', ' ', $createdDate);
             $timestamp = strtotime($createdDate);
@@ -77,6 +78,8 @@ class Validator
             return $convertedDate;
         }
 
+
+        // In this case the information comes from the database
         $timestamp = strtotime($createdDate);
         $convertedDate = date('Y-m-d\TH:i', $timestamp);
         return $convertedDate;
