@@ -92,4 +92,13 @@ class Model
         $sql = "SELECT * FROM `{$this->tableName}` WHERE slug = '$slug'";
         return mysqli_query(static::$dbConnection, $sql);
     }
+
+    public function getPaginationRows(/*data for query*/) {
+
+    }
+
+    public function countPaginationRows(/*data for query*/) {
+        $sql = "SELECT COUNT * `{$this->tableName}`";
+        return mysqli_query(static::$dbConnection, $sql);
+    }
 }

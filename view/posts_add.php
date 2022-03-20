@@ -4,7 +4,7 @@
 
 
 
-<form action="<?=URL_BASE . "posts/save"?>" method="post" enctype="multipart/form-data">
+<form action="<?=URL_BASE . "posts/sav"?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Title</label>
         <input  type="text" name="title" value="<?= isset($_POST['title']) ? $_POST['title'] : '';?>"> 
@@ -15,7 +15,7 @@
         <?= isset($errors['short_description']) ? $errors['short_description'] : '' ;?><br>
 
         <label>Content</label>
-        <textarea name="content" id="tiny" value=""><?= isset($_POST['content']) ? $_POST['content'] : '';?></textarea>
+        <textarea name="content" id="tiny"><?= isset($_POST['content']) ? $_POST['content'] : '';?></textarea>
         <?= isset($errors['content']) ? $errors['content'] : '' ;?> <br>
 
         <label>Slug</label>
