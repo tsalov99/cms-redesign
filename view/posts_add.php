@@ -25,10 +25,10 @@
         <label>Date created</label>
         <input type="datetime-local" name="created" value="<?= isset($_POST['created']) ? $post['created'] : date('Y-m-d\TH:i', time() + 2*60*60); ?>"> <br>
 
-        <!--
+        
         <label>Post image:</label> <br>
-        <input type="file" name="imgUpload[]" multiple> <br>
-        -->
+        <input type="file" name="image[]" multiple> <br>
+        
         
         <label>Active</label>
         <input type="radio" name="active" value=1 checked>

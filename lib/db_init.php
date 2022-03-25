@@ -56,4 +56,6 @@ if (!$dbExists) {
 	$settings['db_connection']->query($settings['database_schema']['posts_table']);
 	$settings['db_connection']->query($settings['database_schema']['images_table']);
 	$settings['db_connection']->query($settings['database_schema']['reviews_table']);
+	$settings['db_connection']->query($settings['database_schema']['img_formats_table']);
+	foreach($settings['database_schema']['constraints'] as $constraint) {$settings['db_connection']->query($constraint);}
 }

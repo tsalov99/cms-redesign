@@ -37,12 +37,11 @@ class Model
     {
         $stmtParts = $this->loadStmtParams($data);
         $sql       = "INSERT INTO `{$this->tableName}` ({$stmtParts['fields']}) VALUES ({$stmtParts['values']})";
-
         // Build the statement
         $stmt = static::$dbConnection->stmt_init();
         $stmt->prepare($sql);
         $stmt->bind_param($stmtParts['params'], ...(array_values($data)));
-        return $stmt->execute();
+        return $stmt->execute();   
     }
 
     public function updateRowById($id, $data)
@@ -91,5 +90,12 @@ class Model
     public function checkSlug($slug) {
         $sql = "SELECT * FROM `{$this->tableName}` WHERE slug = '$slug'";
         return mysqli_query(static::$dbConnection, $sql);
+    }
+
+    public function getLastId() {
+        $sql = "SELECT LAST_INSERT_ID()";
+        $result = mysqli_query(static::$dbConnection, $sql);
+        return $result = $result->fetch_row()[0];
+
     }
 }

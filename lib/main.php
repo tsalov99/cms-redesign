@@ -5,6 +5,8 @@
 define('DS', '/');
 define('ROOT_PATH', str_replace('\\', DS, dirname(dirname(__FILE__))) . DS);
 define('LIB_PATH', ROOT_PATH . 'lib' . DS);
+define('HELPERS_PATH', ROOT_PATH . 'helpers' . DS);
+define('PUBLIC_PATH', ROOT_PATH . 'public' . DS);
 define('MODEL_PATH', ROOT_PATH . 'model' . DS);
 define('VENDOR_PATH', ROOT_PATH . 'vendor' . DS);
 define('LAYOUT_PATH', ROOT_PATH . 'layout' . DS);
