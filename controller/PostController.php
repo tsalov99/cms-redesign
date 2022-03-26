@@ -90,15 +90,16 @@ class PostController
             $result = $post->insertRow($_POST);
             if($result === true) {
 
-                // The post id is used for each post images folder name
                 
+                // Checks whether any images are uploaded
                 if (!empty($_FILES['image']['name'][0])) {
+
+                    // The post id is used for each post images folder name
                     $newPostId = $post->getLastId();
                     require_once (CONTROLLER_PATH . 'ImageController.php');
                     
+                    // After calling the upload function on the ImageController, it automatically converts and saves the image info to the database
                     $convert = ImageController::upload($_FILES, $newPostId);
-
-
                 }
                 
                 require_once(VIEW_PATH . 'posts_saved.php'); return;

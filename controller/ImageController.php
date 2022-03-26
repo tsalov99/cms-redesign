@@ -17,7 +17,7 @@ class ImageController
         and converted and pass them for database upload */
         $relativePath = static::$imageFolder . DS . $folderName . DS;
 
-        // Checks whether is created image folder and creates if its not
+        // Checks whether is created image folder and creates it if its not created yet
         if(!file_exists(PUBLIC_PATH . static::$imageFolder)) {
             mkdir(PUBLIC_PATH . static::$imageFolder);
         }
@@ -66,7 +66,7 @@ class ImageController
         }
     }
 
-    // converts uploaded images to webp format (default quality - 80)
+    // Converts uploaded images to webp format (default quality - 80)
     static function convert($script)
     {
         $output = null;
@@ -76,6 +76,7 @@ class ImageController
         
     }
 
+    // Records all uploaded images which are passed the restrictions to the database
     static function recordToDatabase($data) {
 
         require_once (MODEL_PATH . 'Image.php');
@@ -86,6 +87,7 @@ class ImageController
         }
     }
 
+    // Prepares array with requirement data for each image
     static function prepareData($relativePath, $imagePath, $relatedPostId, $format) {
 
         return $imageData = [ 'path' => $relativePath . $imagePath, 'related_post_id' => $relatedPostId, 'format' => $format ];
