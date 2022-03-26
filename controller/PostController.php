@@ -91,15 +91,14 @@ class PostController
             if($result === true) {
 
                 // The post id is used for each post images folder name
-                $newPostId = $post->getLastId();
-                
                 
                 if (!empty($_FILES['image']['name'][0])) {
-                    require_once (CONTROLLER_PATH . 'WebpConverter.php');
-                    require_once (MODEL_PATH . 'Image.php');
-                    $image = new Image;
+                    $newPostId = $post->getLastId();
+                    require_once (CONTROLLER_PATH . 'ImageController.php');
                     
-                    $convert = WebpConverter::upload($_FILES, $newPostId);
+                    $convert = ImageController::upload($_FILES, $newPostId);
+
+
                 }
                 
                 require_once(VIEW_PATH . 'posts_saved.php'); return;
