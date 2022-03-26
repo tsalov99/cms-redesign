@@ -6,6 +6,7 @@ class ImageController
     static $scriptPath = HELPERS_PATH . 'cwebp';
     static $outputExtension = 'webp';
     static $quality = '80';
+    static $imageFolder = 'images'; 
 
     // folderName equals to the new post id in the database
     static function upload($images, $folderName) {
@@ -14,8 +15,14 @@ class ImageController
 
         /* @uploadedCounter Collects all image paths which relate to this post and which are successfully uploaded 
         and converted and pass them for database upload */
-        $relativePath = 'images'. DS . $folderName . DS;
-        $savePath = PUBLIC_PATH . 'images' . DS . $folderName . DS;
+        $relativePath = static::$imageFolder . DS . $folderName . DS;
+
+        // Checks whether is created image folder and creates if its not
+        if(!file_exists(PUBLIC_PATH . static::$imageFolder)) {
+            mkdir(PUBLIC_PATH . static::$imageFolder);
+        }
+
+        $savePath = PUBLIC_PATH . static::$imageFolder . DS . $folderName . DS;
 
 
         // Creates folder to save images if it is not created yet
