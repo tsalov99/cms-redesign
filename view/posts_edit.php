@@ -2,7 +2,7 @@
 
 <?php require(LAYOUT_PATH . 'navigation.php');?>
 
-<form action="<?=URL_BASE . "posts/save/" . $post['id'];?>" method="post" enctype="multipart/form-data">
+<form action="<?=URL_BASE . "admin/posts/save/" . $post['id'];?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Title</label>
         <input  type="text" name="title" value="<?= isset($post['title']) ? $post['title'] : '';?>">

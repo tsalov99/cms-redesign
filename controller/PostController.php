@@ -19,7 +19,7 @@ class PostController
     }
 
 
-    public function view($params) 
+    public function view($params)
     {
         //Checking whether the parameters are empty or 'all'. In both cases should return all posts. Else checks for record;
         if (empty($params) || $params[0] === 'all') {

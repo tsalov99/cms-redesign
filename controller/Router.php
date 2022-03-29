@@ -15,8 +15,14 @@ class Router
 
         $trimmedUrl = trim($url, '/');
         $trimmedUrlArray = explode('/', $trimmedUrl);
+        
+        // removing the admin to not being conceded as a controller name
+        if($trimmedUrlArray[0] === 'admin') {
+            array_shift($trimmedUrlArray);
+        }
 
-        // If controller is not set in the URL get the default controller and stop Router 
+        
+        // If controller is not set in the URL get the default controller and stop Router
         if (empty($trimmedUrlArray[0])) {
             static::$request['controller'] = 'home';
             static::$request['method'] = 'view';

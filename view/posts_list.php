@@ -15,7 +15,7 @@ if ($allPosts->num_rows > 0) {
         echo "
         <tr class='text-dark h5'>
             <td class='p-0'>
-                <a class='text-dark' style='text-decoration:none; display:blocked;'href=".URL_BASE."posts/view/$post[id]>
+                <a class='text-dark' style='text-decoration:none; display:blocked;'href=".URL_BASE."admin/posts/view/$post[id]>
                     <p class='m-0'>$post[title]</p>
                 </a>
             </td>";

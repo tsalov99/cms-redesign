@@ -4,7 +4,7 @@
 
 
 
-<form action="<?=URL_BASE . "posts/save"?>" method="post" enctype="multipart/form-data">
+<form action="<?=URL_BASE . "admin/posts/save"?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Title</label>
         <input  type="text" name="title" value="<?= isset($_POST['title']) ? $_POST['title'] : '';?>"> 
