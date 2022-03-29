@@ -32,4 +32,13 @@ class PublicSiteController
         $post = $post->fetch_assoc();
         require_once(VIEW_PATH . 'posts_view.php');
     }
+
+    public function bootstrap() {
+        require_once('../lib/main.php');
+        require_once('../lib/config.php');
+        require_once('../lib/db_init.php');
+        require_once('../lib/main.php');
+    }
+
+    
 }

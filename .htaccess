@@ -3,7 +3,7 @@ RewriteEngine on
     RewriteCond %{REQUEST_FILENAME} !-f
     #RewriteRule %{REQUEST_URI} !admin
     #RewriteCond %{REQUEST_URI} !test
-    RewriteRule admin lib/bootstrap.php [L,QSA]
+    RewriteRule admin lib/login_check.php [L,QSA]
 
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ public/index.php [L,QSA]
+    RewriteRule ^(.*)$ public/ [L,QSA]
