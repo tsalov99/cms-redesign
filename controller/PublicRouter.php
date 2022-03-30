@@ -12,7 +12,6 @@ class PublicRouter
 
     public static function prepareUrl($url)
     {
-        
         $trimmedUrl = trim($url, '/');
         $trimmedUrlArray = explode('/', $trimmedUrl);
         
@@ -54,5 +53,6 @@ class PublicRouter
         require_once('../lib/config.php');
         require_once('../lib/db_init.php');
         require_once('../lib/main.php');
+        return static::prepareUrl(ROUTE_BASE);
     }
 }

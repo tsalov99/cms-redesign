@@ -1,5 +1,6 @@
 <?php
 
+require_once('main.php');
 require_once ('config.php');
 // very basic log in--- to be made real one
 if (isset($_COOKIE['logged-in']) && $_COOKIE['logged-in'] === 'true'){
