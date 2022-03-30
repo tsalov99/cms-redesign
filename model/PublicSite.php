@@ -1,11 +1,8 @@
 <?php
 
-require_once('Model.php');
+require_once(MODEL_PATH . 'Model.php');
 
 class PublicSite extends Model
 {
-    public function getImages($id)
-    {
-        
-    }
+    public $tableName = 'posts';
 }

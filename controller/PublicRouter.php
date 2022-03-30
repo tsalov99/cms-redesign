@@ -47,12 +47,4 @@ class PublicRouter
         return static::$request;
 
     }
-
-    public static function bootstrap() {
-        require_once('../lib/main.php');
-        require_once('../lib/config.php');
-        require_once('../lib/db_init.php');
-        require_once('../lib/main.php');
-        return static::prepareUrl(ROUTE_BASE);
-    }
 }

@@ -1,4 +1,4 @@
 RewriteEngine on
-
-    RewriteCond %{REQUEST_FILENAME} !-f
+    RemoveType .php
+    #RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule .* index.php [L,QSA]

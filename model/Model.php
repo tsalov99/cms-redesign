@@ -17,7 +17,7 @@ class Model
         foreach ($data as $field => $data) {
             $bindFields .= "`{$field}`,";
             $bindString .= '?,';
-
+    
             if (is_numeric($data)) {
                 $bindParams .= 'i';
             } else {
@@ -97,5 +97,12 @@ class Model
         $result = mysqli_query(static::$dbConnection, $sql);
         return $result = $result->fetch_row()[0];
 
+    }
+
+    public function getImages($id)
+    {
+        $imageTable = 'images';
+        $sql = "SELECT * FROM `{$imageTable}` WHERE related_post_id = $id";
+        return mysqli_query(static::$dbConnection, $sql);
     }
 }

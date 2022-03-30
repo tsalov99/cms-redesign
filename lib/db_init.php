@@ -31,7 +31,6 @@ if ($settings['db_connection']->connect_errno) {
 	return;
 }
 
-
 // Set charset
 $settings['db_connection']->set_charset('utf8mb4');
 if ($settings['db_connection']->errno) {
