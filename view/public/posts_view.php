@@ -11,7 +11,7 @@ echo "<div class=container-fluid>
 <div class=row>";
 
 while ($image = mysqli_fetch_assoc($postImages)) {
-    $imagePath = 'http://' . $_SERVER['HTTP_HOST'] . URL_BASE . 'public/' . $image['path'];
+    $imagePath = '/' . $image['path'];
     echo "<div class=col-3>
     <picture>
     <source srcset=$imagePath>
@@ -25,6 +25,11 @@ echo "</div>
 </div>";
 
 require_once(LAYOUT_PATH . 'public/comment_form.php');
+
+
+while ($comment = mysqli_fetch_assoc($comments)) {
+  echo "<p>$comment[reviewer_name]</p> <p>$comment[content]</p>";
+}
 require_once(LAYOUT_PATH . 'public/footer.php');
 
    /* <div class="carousel-item active">
