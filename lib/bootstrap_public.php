@@ -30,4 +30,3 @@
             } else {
                 echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Page not found']); return;
             }
-    

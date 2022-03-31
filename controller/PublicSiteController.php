@@ -47,6 +47,8 @@ class PublicSiteController
 
         //generate view
         $post = $post->fetch_assoc();
+
+        // Get images for post
         $postImages = new PublicSite;
 
         //Checks whether client browser accept webp images
@@ -57,14 +59,27 @@ class PublicSiteController
             $postImages = $postImages->getImages($post['id']);
         }
         
+        // Get comments for the post
+        $comments = new PublicSite;
+        $comments = $comments->getComments($post['id']);
+        
         require_once(VIEW_PATH . 'public/posts_view.php');
     }
 
-    public function addComment()
+    public function addComment($id)
     {
         require_once(CONTROLLER_PATH . 'Validator_public.php');
         $errors = Validator::check($_POST);
 
+        if(empty($errors)) {
+            require_once(MODEL_PATH . 'PublicSite.php');
+            $comment = new PublicSite;
+            $data = ['reviewer_name' => $_POST['name'], 'content' => $_POST['content'], 'related_post_id' => (int) $id];
+            $result = $comment->addComment($data);
+            if($result === true) {
+                require_once(VIEW_PATH . 'public/review_added.php');
+            }
+        }
 
         $comment = new PublicSite;
         //$comment = $comment->insertRow();

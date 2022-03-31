@@ -118,4 +118,22 @@ class Model
         $sql = "SELECT id FROM `{$this->tableName}` WHERE slug = '$slug'";
         return mysqli_query(static::$dbConnection, $sql);
     }
+
+    public function addComment($data)
+    {
+        $commentsTable = 'reviews';
+        $stmtParts = $this->loadStmtParams($data);
+        $stmt = static::$dbConnection->stmt_init();
+        $sql = "INSERT INTO `{$commentsTable}` ({$stmtParts['fields']}) VALUES ({$stmtParts['values']})";
+        $stmt->prepare($sql);
+        $stmt->bind_param($stmtParts['params'], ...(array_values($data)));
+        return $stmt->execute();
+    }
+
+    public function getComments($id)
+    {
+        $commentsTable = 'reviews';
+        $sql = "SELECT * FROM `{$commentsTable}` WHERE related_post_id = $id";
+        return mysqli_query(static::$dbConnection, $sql);
+    }
 }

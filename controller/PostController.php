@@ -46,6 +46,7 @@ class PostController
 
         //generate view
         $post = $post->fetch_assoc();
+        $post['content'] = htmlspecialchars_decode($post['content']);
         require_once(VIEW_PATH . 'posts_view.php');
     }
 
