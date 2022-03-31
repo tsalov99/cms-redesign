@@ -6,4 +6,9 @@ RewriteEngine on
     RewriteRule admin lib/login_check.php [L,QSA]
 
     RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{HTTP_ACCEPT} image/webp
+    #RewriteCond %{REQUEST_URI}  (?i)(.*)(\.jpe?g|\.png)$
+    #RewriteCond %{DOCUMENT_ROOT}%1.webp -f
+    #RewriteRule (?i)(.*)(\.jpe?g|\.png)$ %1\.webp [L,T=image/webp,R] 
     RewriteRule ^(.*)$ lib/bootstrap_public.php [L,QSA]
+    

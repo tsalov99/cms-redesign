@@ -6,7 +6,9 @@ class ImageController
     static $scriptPath = HELPERS_PATH . 'cwebp';
     static $outputExtension = 'webp';
     static $quality = '80';
-    static $imageFolder = 'images'; 
+    static $resizeWidth = 1024;
+    static $resizeHeigth = 768;
+    static $imageFolder = 'images';
 
     // folderName equals to the new post id in the database
     static function upload($images, $folderName) {
@@ -46,13 +48,18 @@ class ImageController
                 $convertedFilename = $name . '.' . static::$outputExtension;
                 $scriptInput = $savePath . $originalFilename;
                 $scriptOutput = $savePath . $convertedFilename;
-                $script = static::$scriptPath . ' -q ' . static::$quality .  ' ' . $scriptInput . ' -o ' . $scriptOutput;
-                $convert = static::convert($script);
+                $resize = static::reszie($scriptInput, $scriptOutput);
+                if ($resize !== 0) {
+                    continue;
+                }
+
+                $convert = static::convert($scriptInput, $scriptOutput);
+                
 
                 // If @convert not equals to 0 the script is failed and only the original image should be uploaded
                 if ($convert !== 0) {
 
-                    array_push($uploadedImageData, $originalFilename);
+                    array_push($data, static::prepareData($relativePath, $originalFilename, (int) $folderName, $extension));
                     continue;
                 }
                 array_push($data, static::prepareData($relativePath, $originalFilename, (int) $folderName, $extension));
@@ -67,14 +74,26 @@ class ImageController
     }
 
     // Converts uploaded images to webp format (default quality - 80)
-    static function convert($script)
+    static function convert($scriptInput, $scriptOutput)
     {
+        $script = static::$scriptPath . ' -q ' . static::$quality .  ' ' . $scriptInput . ' -o ' . $scriptOutput;
         $output = null;
         $code = null;
         exec($script, $output, $code);
         return $code;
         
     }
+
+    static function reszie($scriptInput)
+    {
+        $script = static::$scriptPath . ' -resize ' . static::$resizeWidth . ' ' . static::$resizeHeigth . ' -q ' . static::$quality .  ' ' . $scriptInput . ' -o ' . $scriptInput;
+        $output = null;
+        $code = null;
+        exec($script, $output, $code);
+        return $code;
+        
+    }
+
 
     // Records all uploaded images which are passed the restrictions to the database
     static function recordToDatabase($data) {

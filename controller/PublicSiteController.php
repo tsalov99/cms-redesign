@@ -20,6 +20,7 @@ class PublicSiteController
     {
         if (isset($params[0]) && $params[0] === 'public') {
             array_shift($params);
+            
         }
         //Checking whether the parameters are empty or 'all'. In both cases should return all posts. Else checks for record;
         if (empty($params) || $params[0] === 'all') {
@@ -47,13 +48,26 @@ class PublicSiteController
         //generate view
         $post = $post->fetch_assoc();
         $postImages = new PublicSite;
-        $postImages = $postImages->getImages($post['id']);
+
+        //Checks whether client browser accept webp images
+        $webpRead = self::checkFormat();
+        if($webpRead === true) {
+            $postImages = $postImages->getWebpImages($post['id']);
+        } else {
+            $postImages = $postImages->getImages($post['id']);
+        }
+        
         require_once(VIEW_PATH . 'public/posts_view.php');
     }
 
-    public function addComment($id, $comment)
+    public function addComment()
     {
-        # code...
+        require_once(CONTROLLER_PATH . 'Validator_public.php');
+        $errors = Validator::check($_POST);
+
+
+        $comment = new PublicSite;
+        //$comment = $comment->insertRow();
     }
 
     public function bootstrap() {
@@ -68,5 +82,11 @@ class PublicSiteController
         } else {
             echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Page not found']); return;
         }
+    }
+
+    public function checkFormat()
+    {
+       $clientRequestHeaders = apache_request_headers()['Accept'];
+       return strpos($clientRequestHeaders, 'image/webp') ? true : false;
     }
 }

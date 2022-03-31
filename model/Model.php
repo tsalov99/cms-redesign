@@ -102,7 +102,20 @@ class Model
     public function getImages($id)
     {
         $imageTable = 'images';
-        $sql = "SELECT * FROM `{$imageTable}` WHERE related_post_id = $id";
+        $sql = "SELECT * FROM `{$imageTable}` WHERE related_post_id = $id AND format != 'webp'";
+        return mysqli_query(static::$dbConnection, $sql);
+    }
+
+    public function getWebpImages($id)
+    {
+        $imageTable = 'images';
+        $sql = "SELECT * FROM `{$imageTable}` WHERE related_post_id = $id AND format = 'webp'";
+        return mysqli_query(static::$dbConnection, $sql);
+    }
+
+    public function matchIdBySlug($slug)
+    {
+        $sql = "SELECT id FROM `{$this->tableName}` WHERE slug = '$slug'";
         return mysqli_query(static::$dbConnection, $sql);
     }
 }

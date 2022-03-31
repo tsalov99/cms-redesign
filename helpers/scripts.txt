@@ -1,0 +1,5 @@
+cwebp -crop 0 0 1024 768 -q 80 /input_filename(.jpeg/.png/.tiff/.webp)/ -o /output_filename.webp/ - Crop script (0(x-position-start) 0(y_position_start) 1024(width) 768(heigth))
+
+cwebp -resize 1024 768 -q 80 /input_filename(.jpeg/.png/.tiff/.webp)/ -o /output_filename.webp/ - Resize script
+
+cwebp -q 80 /input_filename(.jpeg/.png/.tiff/.webp)/ -o /output_filename.webp/ - Convert image

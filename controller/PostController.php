@@ -72,7 +72,7 @@ class PostController
     }
 
 
-    public  function add($params)
+    public function add($params)
     {
         require_once(CONTROLLER_PATH . 'Validator.php');
         require_once(VIEW_PATH . 'posts_add.php');

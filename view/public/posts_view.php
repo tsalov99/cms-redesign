@@ -1,17 +1,31 @@
 <?php
+require_once(LAYOUT_PATH . 'public/header.php');
 
-echo "<div id=carouselExampleControls class=carousel slide data-ride=carousel>
-<div class=carousel-inner>";
+
+echo "<div class=container w-80>";
+echo "<h1 class=display-3>$post[title]</h1>";
+
+echo "<p class=lead>$post[content]</p>";
+echo "<div class=container-fluid>
+<div class=row>
+<div class=row>";
 
 while ($image = mysqli_fetch_assoc($postImages)) {
-    $imagePath = URL_BASE . 'public/' . $image['path'];
-    echo "<div class=carousel-item active>
-    <img class=d-block w-100 src=$imagePath alt=First slide>
+    $imagePath = 'http://' . $_SERVER['HTTP_HOST'] . URL_BASE . 'public/' . $image['path'];
+    echo "<div class=col-3>
+    <picture>
+    <source srcset=$imagePath>
+    <img class=img-thumbnail width=300px src=$imagePath alt=First slide>
+    </picture>
   </div>";
 }
 
+echo "</div>
+</div>
+</div>";
 
-
+require_once(LAYOUT_PATH . 'public/comment_form.php');
+require_once(LAYOUT_PATH . 'public/footer.php');
 
    /* <div class="carousel-item active">
       <img class="d-block w-100" src="..." alt="First slide">
