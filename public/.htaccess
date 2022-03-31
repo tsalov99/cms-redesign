@@ -1,3 +1,6 @@
 RewriteEngine on
+
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule .* /lib/bootstrap_public.php [L,QSA]
+	#RewriteCond %{REQUEST_FILENAME} !-d
+	
+    RewriteRule .* /lib/bootstrap_public.php [L]

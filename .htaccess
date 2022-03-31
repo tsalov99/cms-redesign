@@ -1,6 +1,6 @@
 RewriteEngine on
 
-    RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-f
     #RewriteRule %{REQUEST_URI} !admin
     #RewriteCond %{REQUEST_URI} !test
     RewriteRule admin lib/login_check.php [L,QSA]
@@ -9,6 +9,6 @@ RewriteEngine on
     #RewriteCond %{HTTP_ACCEPT} image/webp
     #RewriteCond %{REQUEST_URI}  (?i)(.*)(\.jpe?g|\.png)$
     #RewriteCond %{DOCUMENT_ROOT}%1.webp -f
-    #RewriteRule (?i)(.*)(\.jpe?g|\.png)$ %1\.webp [L,T=image/webp,R] 
-    RewriteRule ^(.*)$ lib/bootstrap_public.php [L,QSA]
-    
+    #RewriteRule (?i)(.*)(\.jpe?g|\.png)$ %1\.webp [L,T=image/webp,R]
+    #RewriteRule .* public/ [L]
+    RewriteRule ^(.*)$ public/$1 [L]
