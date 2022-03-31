@@ -39,16 +39,15 @@ class PublicSiteController
         require_once(MODEL_PATH . 'PublicSite.php');
         $post = new PublicSite;
         $post = $post->readRowById($params[0]);
-
+        
         //Check whether passed number parameter for ID is real database record
         if ($post->num_rows === 0) {
             echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Post with this id is not existing']); return;
         }
 
-        //generate view
         $post = $post->fetch_assoc();
-
-        // Get images for post
+        $post['content'] = htmlspecialchars_decode($post['content']);
+        
         $postImages = new PublicSite;
 
         //Checks whether client browser accept webp images
@@ -62,7 +61,7 @@ class PublicSiteController
         // Get comments for the post
         $comments = new PublicSite;
         $comments = $comments->getComments($post['id']);
-        
+
         require_once(VIEW_PATH . 'public/posts_view.php');
     }
 
