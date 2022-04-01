@@ -41,7 +41,7 @@ class Model
         $stmt = static::$dbConnection->stmt_init();
         $stmt->prepare($sql);
         $stmt->bind_param($stmtParts['params'], ...(array_values($data)));
-        return $stmt->execute();   
+        return $stmt->execute();
     }
 
     public function updateRowById($id, $data)
@@ -68,6 +68,16 @@ class Model
     {   
         $id = (int) $id;
         $sql = "SELECT * FROM `{$this->tableName}` WHERE id = $id";
+        $stmt = static::$dbConnection->stmt_init();
+        $stmt->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result;
+    }
+
+    public function readRowBySlug($slug)
+    {   
+        $sql = "SELECT * FROM `{$this->tableName}` WHERE slug = '$slug'";
         $stmt = static::$dbConnection->stmt_init();
         $stmt->prepare($sql);
         $stmt->execute();
@@ -130,10 +140,10 @@ class Model
         return $stmt->execute();
     }
 
-    public function getComments($id)
+    public function getComments($slug)
     {
         $commentsTable = 'reviews';
-        $sql = "SELECT * FROM `{$commentsTable}` WHERE related_post_id = $id";
+        $sql = "SELECT * FROM `{$commentsTable}` WHERE related_post_id = $slug";
         return mysqli_query(static::$dbConnection, $sql);
     }
 }

@@ -2,7 +2,7 @@
 
 <?php require(LAYOUT_PATH . 'navigation.php');?>
 
-<form action="<?=URL_BASE . "admin/posts/save/" . $post['id'];?>" method="post" enctype="multipart/form-data">
+<form action="<?="/admin/posts/save/" . $post['id'];?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Title</label>
         <input  type="text" name="title" value="<?= isset($post['title']) ? $post['title'] : '';?>">
@@ -23,10 +23,8 @@
         <label>Date created</label>
         <input type="datetime-local" name="created" value="<?= isset($post['created']) ? $post['created'] : ""; ?>"> <br>
 
-        <!--
         <label>Post image:</label> <br>
-        <input type="file" name="imgUpload[]" multiple> <br>
-        //-->
+        <input type="file" name="image[]" multiple> <br>
 
         <label>Active</label>
         <input type="radio" name="active" value=1 checked>

@@ -18,27 +18,22 @@ class PublicSiteController
     
         public function view($params)
     {
-        if (isset($params[0]) && $params[0] === 'public') {
-            array_shift($params);
-            
-        }
         //Checking whether the parameters are empty or 'all'. In both cases should return all posts. Else checks for record;
         if (empty($params) || $params[0] === 'all') {
             require_once(MODEL_PATH . 'PublicSite.php');
             $allPosts = new PublicSite;
             $allPosts = $allPosts->readAll();
             require_once(VIEW_PATH . 'public/posts_list.php'); return;
-        }
-
+        } else if ($params)
 
         // Checking whether id parameter is number, if its not returns error
-        if (!is_numeric($params[0]) || strpos($params[0], 'e') !== false) {
-            echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'This post does not exist']); return;
-        };
-
+        //if (!is_numeric($params[0]) || strpos($params[0], 'e') !== false) {
+        //    echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'This post does not exist']); return;
+        //};
+            
         require_once(MODEL_PATH . 'PublicSite.php');
         $post = new PublicSite;
-        $post = $post->readRowById($params[0]);
+        $post = $post->readRowBySlug($params[0]);
         
         //Check whether passed number parameter for ID is real database record
         if ($post->num_rows === 0) {
@@ -70,18 +65,21 @@ class PublicSiteController
         require_once(CONTROLLER_PATH . 'Validator_public.php');
         $errors = Validator::check($_POST);
 
+
+        // If error are empty the comment is added
         if(empty($errors)) {
             require_once(MODEL_PATH . 'PublicSite.php');
             $comment = new PublicSite;
-            $data = ['reviewer_name' => $_POST['name'], 'content' => $_POST['content'], 'related_post_id' => (int) $id];
+            $data = ['reviewer_name' => $_POST['name'], 'content' => $_POST['content'], 'related_post_id' => (int) $id[0]];
             $result = $comment->addComment($data);
             if($result === true) {
                 require_once(VIEW_PATH . 'public/review_added.php');
             }
+        } else {
+            echo renderTemplate(VIEW_PATH . 'error.php', ['error' => 'Too tricky']); return;
         }
 
-        $comment = new PublicSite;
-        //$comment = $comment->insertRow();
+        
     }
 
     public function bootstrap() {

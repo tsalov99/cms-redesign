@@ -25,8 +25,8 @@ require(LAYOUT_PATH . 'navigation.php');
 
     echo "<p class='h3'>Active: $active</p>";
 
-    echo "<a href=" . URL_BASE . "admin/posts/edit/$post[id]><p>Edit post</p></a>";
-    echo "<a href=" . URL_BASE . "admin/posts/delete/$post[id]><p>Delete post</p></a>";
+    echo "<a href=/admin/posts/edit/$post[id]><p>Edit post</p></a>";
+    echo "<a href=/admin/posts/delete/$post[id]><p>Delete post</p></a>";
     echo "</div>";
 
     require(LAYOUT_PATH . 'bottom.php');

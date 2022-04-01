@@ -107,12 +107,22 @@ class PostController
             }
         }
         
-        // Checks if is set flag - "update" which for the controller means that the post is updating. The value is added in Validator
-        if ($errors['slug'] === 'update') {
+        // Checks if is set flag - "update". The "update" value is added in Validator check
+        if (isset($errors['slug']) && $errors['slug'] === 'update') {
             $post = new Post;
-            $id = $params[0];
+            $id = (int )$params[0];
             $result = $post->updateRowById($id, $_POST);
             if($result === true) {
+
+                if (!empty($_FILES['image']['name'][0])) {
+
+                    // The post id is used for each post images folder name
+
+                    require_once (CONTROLLER_PATH . 'ImageController.php');
+                    
+                    // After calling the upload function on the ImageController, it automatically converts and saves the image info to the database
+                    $convert = ImageController::upload($_FILES, $id);
+                }
                 require_once(VIEW_PATH . 'posts_saved.php'); return;
             }
         }

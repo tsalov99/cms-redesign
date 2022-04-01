@@ -15,15 +15,6 @@
             Model::$dbConnection = new mysqli($settings['database']['host'], $settings['database']['user'], $settings['database']['pass'], $settings['database']['name']);
             // Dispatch route
             $request = PublicRouter::prepareUrl(ROUTE_BASE);
-
-            //$controllerName = ucfirst($request['controller']) . 'Controller';
-            //$controllerPath = CONTROLLER_PATH . ucfirst($request['controller']) . 'Controller.php';
-            //if (file_exists($controllerPath)) {
-            //    require_once($controllerPath);
-            //    $controller = new $controllerName;
-            //}
-            
-            //print_r($request);
             
             if ($request['callback'] !== NULL) {
                 call_user_func($request['callback'], $request);

@@ -22,16 +22,22 @@ class Validator
             if(strlen($short_description) === 0) {static::$errors['short_description'] = 'The field cannot be empty!';}
             else if (strlen($short_description) > 150) {static::$errors['short_description'] = 'This field must be under 150 characters!';}
             
+
+            
             $_POST['slug'] = htmlspecialchars($_POST['slug']);
             $slug = $_POST['slug'];
             if (strlen($slug) === 0) { $_POST['slug'] = $title; $slug = $title;}
+            
+            // Replace spaces with hyphens for slug
+            $_POST['slug'] = str_replace(" ", "-", $_POST['slug']);
 
             if(strlen($slug) === 0) { static::$errors['slug'] = 'The field cannot be empty!';}
             else if (strlen($slug) > 80) { static::$errors['slug'] = 'This field must be under 80 characters!';}
             if(empty(static::$errors)) {
 
                     // if post is edited the ID should be passed;
-                    (isset($params[0])) ? $id = $params[0] : $id = null; 
+                    (isset($params[0])) ? $id = $params[0] : $id = null;
+
 
                     // returns array with post info if its matching or null
                     $checkSlugId = self::slugDuplicateCheck($slug);
