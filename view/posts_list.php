@@ -25,5 +25,5 @@ if ($allPosts->num_rows > 0) {
 } else {
     echo '<h1>No posts added!</h1>';
 }
-
+require(LAYOUT_PATH . 'paginator.php');
 require(LAYOUT_PATH . 'bottom.php');

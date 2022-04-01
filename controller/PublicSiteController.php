@@ -4,6 +4,7 @@ class PublicSiteController
 {
     private  $model = 'PostSite';
     private  $method;
+    private  $limit = 5;
 
     function __construct($method, $params)
     {
@@ -20,9 +21,17 @@ class PublicSiteController
     {
         //Checking whether the parameters are empty or 'all'. In both cases should return all posts. Else checks for record;
         if (empty($params) || $params[0] === 'all') {
+
+            (isset($params[1]) && is_numeric($params[1])) ? $page = (int) $params[1] : $page = 1;
+            $start = ($page - 1) * $this->limit;
+            require_once(MODEL_PATH . 'Post.php');
+            $allPosts = new Post;
+            $count = $allPosts->countPaginationRows();
+            $totalPages = ceil($count / $this->limit);
+
             require_once(MODEL_PATH . 'PublicSite.php');
             $allPosts = new PublicSite;
-            $allPosts = $allPosts->readAll();
+            $allPosts = $allPosts->readAll($start, $this->limit);
             require_once(VIEW_PATH . 'public/posts_list.php'); return;
         } else if ($params)
 

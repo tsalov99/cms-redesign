@@ -11,11 +11,13 @@ echo "<div class=row>";
               <div class=mb-1 text-muted>$post[created]</div>
               <p class=card-text mb-auto>$post[short_description]</p>
               <a href=/posts/view/$post[slug] class=stretched-link>Continue reading</a>
+              <hr>
             </div>
           </div>
         </div>";
+
   }
  echo "</div></div>";
 }
-
+require(LAYOUT_PATH . 'public/paginator_public.php');
 require(LAYOUT_PATH . 'public/footer.php');

@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 class Model
 {
     public $tableName;
@@ -91,9 +93,9 @@ class Model
         return mysqli_query(static::$dbConnection, $sql); 
     }
     
-    public function readAll()//($order, $conditions)
+    public function readAll($start, $limit)
     {
-        $sql = "SELECT * FROM `{$this->tableName}`";
+        $sql = "SELECT * FROM `{$this->tableName}` LIMIT $start, $limit";
         return mysqli_query(static::$dbConnection, $sql);
     }
 
@@ -145,5 +147,13 @@ class Model
         $commentsTable = 'reviews';
         $sql = "SELECT * FROM `{$commentsTable}` WHERE related_post_id = $slug";
         return mysqli_query(static::$dbConnection, $sql);
+    }
+
+    public function countPaginationRows() {
+        $sql = "SELECT COUNT(*) FROM `{$this->tableName}`";
+        $result = mysqli_query(static::$dbConnection, $sql);
+        $result = $result->fetch_row();
+        $result = (int) $result[0];
+        return $result;
     }
 }

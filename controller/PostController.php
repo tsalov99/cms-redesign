@@ -6,6 +6,7 @@ class PostController
 {
     private  $model = 'Post';
     private  $method;
+    private  $limit = 5;
 
     function __construct($method, $params)
     {
@@ -23,9 +24,15 @@ class PostController
     {
         //Checking whether the parameters are empty or 'all'. In both cases should return all posts. Else checks for record;
         if (empty($params) || $params[0] === 'all') {
+
+            // Check if isset parameter for page number
+            (isset($params[1]) && is_numeric($params[1])) ? $page = (int) $params[1] : $page = 1;
+            $start = ($page - 1) * $this->limit;
             require_once(MODEL_PATH . 'Post.php');
             $allPosts = new Post;
-            $allPosts = $allPosts->readAll();
+            $count = $allPosts->countPaginationRows();
+            $totalPages = ceil($count / $this->limit);
+            $allPosts = $allPosts->readAll($start, $this->limit);
             require_once(VIEW_PATH . 'posts_list.php'); return;
         }
 
