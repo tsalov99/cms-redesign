@@ -29,7 +29,10 @@ class Validator
             if (strlen($slug) === 0) { $_POST['slug'] = $title; $slug = $title;}
             
             // Replace spaces with hyphens for slug
-            $_POST['slug'] = str_replace(" ", "-", $_POST['slug']);
+
+            $_POST['slug'] = preg_replace('/ +/', '-', $_POST['slug']);
+            $_POST['slug'] = rtrim($_POST['slug'], "-");
+            //$_POST['slug'] = str_replace(" ", "-", $_POST['slug']);
 
             if(strlen($slug) === 0) { static::$errors['slug'] = 'The field cannot be empty!';}
             else if (strlen($slug) > 80) { static::$errors['slug'] = 'This field must be under 80 characters!';}
